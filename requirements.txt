@@ -1,0 +1,7 @@
+Django
+django-dotenv
+mysqlclient
+privex-helpers
+privex-loghelper
+python-dateutil
+pytz
