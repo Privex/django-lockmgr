@@ -4,9 +4,7 @@ addons:
 before_install:
   - mysql -e 'CREATE DATABASE lockmgr;'
 env:
-  - DB_BACKEND=mysql
-  - DB_USER=root
-  - DB_NAME=lockmgr
+  - DB_BACKEND=mysql DB_USER=root DB_NAME=lockmgr
 language: python
 python:
   - "3.6"
