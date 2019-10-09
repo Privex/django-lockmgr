@@ -1,7 +1,12 @@
 Django
-django-dotenv
+python-dotenv
 mysqlclient
 privex-helpers
 privex-loghelper
 python-dateutil
 pytz
+
+# Unit testing
+django-nose
+coverage
+codecov

@@ -1,5 +1,16 @@
+
 Privex's Django Database Lock Manager
 ======================================
+
+[![Build Status](https://travis-ci.com/Privex/django-lockmgr.svg?branch=master)](https://travis-ci.com/Privex/django-lockmgr) 
+[![Codecov](https://img.shields.io/codecov/c/github/Privex/django-lockmgr.svg)](https://codecov.io/gh/Privex/django-lockmgr)
+[![PyPi Version](https://img.shields.io/pypi/v/django-lockmgr.svg)](https://pypi.org/project/django-lockmgr/)
+![License Button](https://img.shields.io/pypi/l/django-lockmgr) 
+![PyPI - Downloads](https://img.shields.io/pypi/dm/django-lockmgr)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-lockmgr) 
+![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-lockmgr)
+![GitHub last commit](https://img.shields.io/github/last-commit/Privex/django-lockmgr)
+
 
 ```
 +===================================================+

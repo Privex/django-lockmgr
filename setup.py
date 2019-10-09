@@ -36,6 +36,7 @@ otherwise to promote the sale, use or other dealings in this Software without pr
 
 from setuptools import setup, find_packages
 import os
+import lockmgr
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -46,7 +47,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='django-lockmgr',
 
-    version='1.0.0',
+    version=lockmgr.VERSION,
 
     description='A locking system for Django apps simply using the database.',
     long_description=long_description,
@@ -61,11 +62,20 @@ setup(
         'privex-helpers>=1.2.0',
         'python-dateutil',
         'pytz',
-        'django-dotenv',
+        'python-dotenv',
     ],
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Framework :: Django",
+        "Framework :: Django :: 1.10",
+        "Framework :: Django :: 1.11",
+        "Framework :: Django :: 2.0",
+        "Framework :: Django :: 2.1",
+        "Framework :: Django :: 2.2",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

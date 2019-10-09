@@ -1,12 +1,8 @@
-from datetime import timedelta
-
-from django.test import TestCase
 import os
-
+from datetime import timedelta
+from django.test import TestCase
 from django.utils import timezone
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lockmgr.settings")
-
 from lockmgr.lockmgr import LockMgr, Locked, Lock, get_lock, unlock, is_locked
 
 

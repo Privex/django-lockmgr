@@ -99,7 +99,6 @@ class LockMgr:
         log.debug('LockMgr exiting. Releasing all held locks')
         for lock in self._locks:
             self.unlock(lock)
-        return True
 
 
 def is_locked(name) -> bool:

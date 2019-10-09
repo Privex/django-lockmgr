@@ -15,14 +15,16 @@ _lh = LogHelper('lockmgr', formatter=LOG_FORMATTER, handler_level=LOG_LEVEL)
 
 _lh.add_console_handler()
 
-INSTALLED_APPS = ['lockmgr']
+INSTALLED_APPS = ['django_nose', 'lockmgr']
 
 DATABASES = {}
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 if env('DB_BACKEND', 'sqlite') in ['sqlite', 'sqlite3']:
     DATABASES = dict(default=dict(
-        engine='django.db.backends.sqlite3',
-        name=os.path.join(BASE_DIR, env('DB_PATH', 'db.sqlite3'))
+        ENGINE='django.db.backends.sqlite3',
+        NAME=os.path.join(BASE_DIR, env('DB_PATH', 'db.sqlite3'))
     ))
 else:
     DATABASES = {
