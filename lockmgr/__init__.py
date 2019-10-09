@@ -43,5 +43,5 @@ otherwise to promote the sale, use or other dealings in this Software without pr
 
 name = 'lockmgr'
 
-VERSION = '1.1.1'
+VERSION = '1.1.2'
 

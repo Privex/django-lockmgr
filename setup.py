@@ -62,7 +62,6 @@ setup(
         'privex-helpers>=1.2.0',
         'python-dateutil',
         'pytz',
-        'python-dotenv',
     ],
     packages=find_packages(),
     classifiers=[
