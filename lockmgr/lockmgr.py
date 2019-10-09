@@ -66,6 +66,7 @@ class LockMgr:
         :return bool success: ``True`` if successful. If ``ret`` is true then will also return False on failure.
         """
         expires = self.expires if empty(expires) else int(expires)
+        wait = self.wait if empty(wait) else int(wait)
         log.debug('Attempting to get lock %s with expiry of %s', name, expires)
         try:
             lck = get_lock(name=name, locked_by=self.locked_by, lock_process=self.lock_process, expires=expires)

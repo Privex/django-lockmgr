@@ -42,6 +42,27 @@ class TestLockMgr(TestCase):
         except AttributeError:
             # Verify that test_except is now cleanly unlocked
             self.assertFalse(is_locked('test_except'), msg="is_locked('test_except') == False")
+    
+    def test_lock_wait(self):
+        """Test that LockMgr runs code with 'wait for lock expiry' when lock expires within wait period"""
+        lck = get_lock('test_wait', expires=4)
+        start_lock = timezone.now()
+        with LockMgr('test_wait', wait=5):
+            end_lock = timezone.now()
+            self.assertGreaterEqual(end_lock, start_lock + timedelta(seconds=4), msg="Assert lock released after at least 4 seconds")
+            self.assertLess(end_lock, start_lock + timedelta(seconds=15), msg="Assert lock released in <15 seconds")
+
+    def test_lock_wait_timeout(self):
+        """Test that LockMgr raises Locked with 'wait for lock expiry' when lock still locked after waiting period"""
+        lck = get_lock('test_wait', expires=15)
+        start_lock = timezone.now()
+        # LockMgr should raise `Locked` because `test_wait` should still be valid for another 10 seconds.
+        with self.assertRaises(Locked):
+            with LockMgr('test_wait', wait=5):
+                pass
+        end_lock = timezone.now()
+        self.assertGreaterEqual(end_lock, start_lock + timedelta(seconds=5), msg="Lock wait timed out after at least 5 secs")
+        self.assertLess(end_lock, start_lock + timedelta(seconds=15), msg="Lock wait timed out in <15 seconds")
 
     def test_lock_expiry(self):
         """Test that expired locks are correctly removed"""

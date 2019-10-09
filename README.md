@@ -110,9 +110,9 @@ Install all required dependencies:
 pip3 install -r requirements.txt -U
 ```
 
-Now run the tests (-v2 for verbosity level 2):
+Now run the tests (--verbose for more detailed testing output):
 
 ```
-./manage.py test -v2
+./manage.py test --verbose
 ```
 
