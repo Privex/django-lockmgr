@@ -33,6 +33,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 Except as contained in this notice, the name(s) of the above copyright holders shall not be used in advertising or
 otherwise to promote the sale, use or other dealings in this Software without prior written authorization.
 """
+import warnings
 
 from setuptools import setup, find_packages
 import os
@@ -43,6 +44,23 @@ with open("README.md", "r") as fh:
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+extra_commands = {}
+
+try:
+    # noinspection PyUnresolvedReferences
+    from privex.helpers import settings
+
+    settings.VERSION_FILE = os.path.join(BASE_DIR, 'lockmgr', '__init__.py')
+    import privex.helpers.setuppy.commands
+    
+    extra_commands['extras'] = privex.helpers.setuppy.commands.ExtrasCommand
+    extra_commands['bump'] = privex.helpers.setuppy.commands.BumpCommand
+except (ImportError, AttributeError) as e:
+    warnings.warn('Failed to import privex.helpers.setuppy.commands - the command "bump" may not work.')
+    warnings.warn(f'Error Reason: {type(e)} - {str(e)}')
+
 
 setup(
     name='django-lockmgr',
@@ -59,11 +77,12 @@ setup(
     license='MIT',
     install_requires=[
         'Django',
-        'privex-helpers>=1.2.0',
+        'privex-helpers>=2.0.0',
         'python-dateutil',
         'pytz',
     ],
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests', 'test.*']),
+    cmdclass=extra_commands,
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",

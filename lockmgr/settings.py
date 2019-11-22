@@ -21,6 +21,13 @@ DATABASES = {}
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
 if env('DB_BACKEND', 'sqlite') in ['sqlite', 'sqlite3']:
     DATABASES = dict(default=dict(
         ENGINE='django.db.backends.sqlite3',
@@ -34,5 +41,6 @@ else:
             'USER': env('DB_USER', 'lockmgr'),
             'PASSWORD': env('DB_PASS', ''),
             'HOST': env('DB_HOST', 'localhost'),
+            'PORT': env('DB_PORT', ''),
         }
     }

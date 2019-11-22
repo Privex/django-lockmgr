@@ -1,12 +1,28 @@
 Django
 python-dotenv
-mysqlclient
-privex-helpers
+privex-helpers[setuppy]
 privex-loghelper
 python-dateutil
 pytz
+# For running the tests on MySQL
+mysqlclient
+# For running the tests on PostgreSQL
+psycopg2
 
 # Unit testing
 django-nose
 coverage
 codecov
+pytest
+pytest-django
+pytest-cov
+
+# Docs (sphinx)
+
+Sphinx>=2.1.2
+sphinx-autobuild>=0.7.1
+restructuredtext-lint>=1.3.0
+sphinx-rtd-theme>=0.4.3
+MarkupSafe>=1.1.1
+docutils>=0.14
+

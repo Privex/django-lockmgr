@@ -1,28 +1,39 @@
 dist: bionic
+services:
+  - postgresql
 addons:
   mariadb: '10.3'
-before_install:
-  - mysql -e 'CREATE DATABASE lockmgr;'
+  postgresql: '10'
+
+before_script:
+  - sh -c "if [ '$DB_BACKEND' = 'postgresql' ]; then psql -c 'create database lockmgr;' -U postgres; fi"
+  - sh -c "if [ '$DB_BACKEND' = 'mysql' ]; then mysql -e 'CREATE DATABASE lockmgr;'; fi"
+
 env:
-  - DB_BACKEND=mysql DB_USER=root DB_NAME=lockmgr CODECOV_TOKEN=3e9eb52c-c56b-46cc-b1ae-34dae6c2b386
-    PIP_ARGS=
+  global:
+    - DB_NAME=lockmgr
+    - DB_BACKEND=mysql
+    - DB_USER=root
+    - DB_NAME=lockmgr
+    - PIP_ARGS=
 
 language: python
+cache: pip
 matrix:
   include:
-    - python: 3.6
-      env: DJANGO_VERSION="Django==1.10.*"
     - python: 3.6
       env: DJANGO_VERSION="Django==1.11.*"
     - python: 3.6
       env: DJANGO_VERSION="Django==2.0.*"
     - python: 3.6
       env: DJANGO_VERSION="Django==2.1.*"
-    - python: 
-        - 3.6
-        - 3.7
-        - 3.8
-        - 3.8-dev
+    - python: 3.6
+      env: DJANGO_VERSION="Django==2.2.*"
+    - python: 3.7
+      env: DJANGO_VERSION="Django==2.2.*"
+    - python: 3.7
+      env: DJANGO_VERSION="Django==2.2.*" DB_BACKEND=postgresql DB_USER=postgres
+    - python: 3.8
       env: DJANGO_VERSION="Django==2.2.*"
     - python: nightly
       env: DJANGO_VERSION="Django" PIP_ARGS="--pre -U"
@@ -31,6 +42,6 @@ install:
   - pip install -r requirements.txt -U
   - pip install .
   - pip install $PIP_ARGS "$DJANGO_VERSION"
-script: ./manage.py test --with-coverage --cover-package lockmgr
+script: ./manage.py test --verbose --with-coverage --cover-package lockmgr
 after_success:
   - codecov
